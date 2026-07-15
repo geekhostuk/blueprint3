@@ -1,0 +1,62 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+import Button from '../components/Button.astro';
+import Logo from '../components/Logo.astro';
+
+// Where a native (no-JS) form post lands if the enquiry couldn't be delivered.
+// Deliberately says so plainly rather than pretending it went through.
+---
+
+<Layout
+  title="That didn't send — BluePrint3"
+  description="Your quote request didn't reach us. Please try again."
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+
+  <main class="wrap">
+    <a class="wrap__brand" href="/" aria-label="BluePrint3 — home">
+      <Logo size={24} showMark markSrc="/assets/logo-cube.png" />
+    </a>
+    <Card padding="var(--space-6)">
+      <h1 class="title">That didn't send.</h1>
+      <p class="body">
+        Something went wrong at our end and your message didn't reach us &mdash; so please don't
+        assume we've got it. Go back and try again, and if it still won't send we'd rather you told
+        us than gave up.
+      </p>
+      <Button variant="primary" href="/#quote">Back to the form</Button>
+    </Card>
+  </main>
+</Layout>
+
+<style>
+  .wrap {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 48px 24px 88px;
+  }
+
+  .wrap__brand {
+    display: inline-flex;
+    margin-bottom: 32px;
+    text-decoration: none;
+  }
+
+  .title {
+    font-size: 30px;
+    font-weight: var(--fw-extrabold);
+    color: var(--text-heading);
+    margin: 0;
+    letter-spacing: var(--ls-tight);
+  }
+
+  .body {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: var(--lh-body);
+    margin: 12px 0 24px;
+  }
+</style>

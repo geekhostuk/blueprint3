@@ -1,0 +1,145 @@
+/* BluePrint3 design tokens.
+   Mirrored from the BluePrint3 Design System (tokens/*.css). Keep in sync. */
+
+/* ── Colour ──────────────────────────────────────────────────────────────
+   The palette is two blues, a charcoal, white. Keep it that way:
+   if something needs to stand out, the answer is space or weight, not a
+   new colour. */
+:root {
+  /* Base palette */
+  --bp-blue: #2689e6;          /* Primary brand blue. Logo, links, key accents. */
+  --bp-blue-action: #1e73be;   /* Action blue. Buttons/CTAs — clears WCAG AA on white. */
+  --bp-blue-action-hover: #195f9c;
+  --bp-charcoal: #333638;      /* Wordmark, headings, body text. */
+  --bp-grey: #4f4f4f;          /* Utility grey. Top bars, secondary UI, muted text. */
+  --bp-navy: #223769;          /* Blueprint navy — dark end of the grid gradient. */
+  --bp-navy-light: #32508d;    /* Blueprint navy — light end of the grid gradient. */
+  --bp-white: #ffffff;
+
+  /* Neutral steps derived from charcoal/grey for surfaces & borders */
+  --bp-ink-900: #333638;
+  --bp-ink-700: #4f4f4f;
+  --bp-ink-500: #767b7e;
+  --bp-ink-300: #b9bcbe;
+  --bp-ink-150: #e2e4e6;
+  --bp-ink-75: #f1f3f4;
+  --bp-ink-50: #f7f8f9;
+
+  /* Tints of brand blue for subtle fills */
+  --bp-blue-tint: #eaf3fc;
+  --bp-blue-tint-strong: #cfe4f8;
+
+  /* Semantic aliases */
+  --color-brand: var(--bp-blue);
+  --color-action: var(--bp-blue-action);
+  --color-action-hover: var(--bp-blue-action-hover);
+
+  --text-heading: var(--bp-charcoal);
+  --text-body: var(--bp-charcoal);
+  --text-muted: var(--bp-grey);
+  --text-faint: var(--bp-ink-500);
+  --text-link: var(--bp-blue-action);
+  --text-on-dark: var(--bp-white);
+
+  --surface-page: var(--bp-white);
+  --surface-sunken: var(--bp-ink-50);
+  --surface-card: var(--bp-white);
+  --surface-tint: var(--bp-blue-tint);
+  --surface-dark: var(--bp-navy);
+
+  --border-default: var(--bp-ink-150);
+  --border-strong: var(--bp-ink-300);
+  --border-focus: var(--bp-blue);
+
+  --color-error: #c0392b;
+
+  /* The blueprint grid gradient — bright centre, darker edges */
+  --bp-grid-gradient: radial-gradient(120% 120% at 50% 40%, var(--bp-navy-light) 0%, var(--bp-navy) 78%);
+  --bp-grid-line: rgba(255, 255, 255, 0.14);
+  --bp-grid-line-major: rgba(255, 255, 255, 0.22);
+}
+
+/* ── Typography ──────────────────────────────────────────────────────────
+   One typeface: Open Sans. */
+:root {
+  --font-sans: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* No brand mono exists; use a system stack for spec figures / dimensions. */
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Menlo', 'Consolas', monospace;
+
+  /* Weights */
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  /* Type scale (rem @ 16px base). Sentence case for headings, never Title Case. */
+  --fs-display: 3.5rem;   /* 56px — hero */
+  --fs-h1: 2.5rem;        /* 40px */
+  --fs-h2: 1.875rem;      /* 30px */
+  --fs-h3: 1.375rem;      /* 22px */
+  --fs-h4: 1.125rem;      /* 18px */
+  --fs-body-lg: 1.125rem; /* 18px */
+  --fs-body: 1rem;        /* 16px */
+  --fs-small: 0.875rem;   /* 14px */
+  --fs-caption: 0.75rem;  /* 12px */
+
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-heading: 1.2;
+  --lh-snug: 1.4;
+  --lh-body: 1.6;
+
+  /* Letter spacing */
+  --ls-tight: -0.01em;
+  --ls-normal: 0;
+  --ls-label: 0.04em;
+  --ls-wide: 0.12em;
+}
+
+/* ── Spacing & layout — 4px base grid ────────────────────────────────── */
+:root {
+  --space-0: 0;
+  --space-1: 0.25rem;  /* 4 */
+  --space-2: 0.5rem;   /* 8 */
+  --space-3: 0.75rem;  /* 12 */
+  --space-4: 1rem;     /* 16 */
+  --space-5: 1.5rem;   /* 24 */
+  --space-6: 2rem;     /* 32 */
+  --space-7: 3rem;     /* 48 */
+  --space-8: 4rem;     /* 64 */
+  --space-9: 6rem;     /* 96 */
+
+  --container-max: 1200px;
+  --container-narrow: 760px;
+  --gutter: 1.5rem;
+}
+
+/* ── Radii, borders, shadows, motion ─────────────────────────────────────
+   Restrained and technical: modest radii, hairline borders, soft shadows.
+   Interactions are quick and functional — no bounce. */
+:root {
+  /* Corner radii — small and consistent, like a drawn detail, not a pill UI. */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* Borders — hairline is the default; the blueprint grid is drawn in lines. */
+  --border-hairline: 1px solid var(--border-default);
+  --border-medium: 1.5px solid var(--border-strong);
+
+  /* Shadows — soft, cool-tinted, low. Cards lift a little, not a lot. */
+  --shadow-xs: 0 1px 2px rgba(34, 55, 105, 0.06);
+  --shadow-sm: 0 1px 3px rgba(34, 55, 105, 0.08), 0 1px 2px rgba(34, 55, 105, 0.06);
+  --shadow-md: 0 4px 12px rgba(34, 55, 105, 0.1);
+  --shadow-lg: 0 12px 32px rgba(34, 55, 105, 0.14);
+  --shadow-focus: 0 0 0 3px rgba(38, 137, 230, 0.35);
+
+  /* Motion — fast, linear-ish, no overshoot. */
+  --ease-standard: cubic-bezier(0.2, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-med: 200ms;
+}

@@ -1,0 +1,89 @@
+---
+/** Labelled multi-line text field. Mirrors Input styling. */
+interface Props {
+  label?: string;
+  hint?: string;
+  error?: string;
+  id: string;
+  name?: string;
+  rows?: number;
+  placeholder?: string;
+  required?: boolean;
+  class?: string;
+}
+
+const { label, hint, error, id, name, rows = 4, class: className, ...rest } = Astro.props;
+
+const describedBy = error || hint ? `${id}-desc` : undefined;
+---
+
+<div class:list={['field', className]}>
+  {label && <label class="field__label" for={id}>{label}</label>}
+  <textarea
+    id={id}
+    name={name ?? id}
+    rows={rows}
+    class:list={['field__textarea', error && 'field__textarea--error']}
+    aria-describedby={describedBy}
+    aria-invalid={error ? 'true' : undefined}
+    {...rest}></textarea>
+  {
+    (error || hint) && (
+      <span id={describedBy} class:list={['field__msg', error && 'field__msg--error']}>
+        {error || hint}
+      </span>
+    )
+  }
+</div>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .field__label {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    color: var(--text-body);
+  }
+
+  .field__textarea {
+    width: 100%;
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    color: var(--text-body);
+    background: var(--surface-card);
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    padding: 10px 12px;
+    outline: none;
+    resize: vertical;
+    transition:
+      border-color var(--dur-fast) var(--ease-standard),
+      box-shadow var(--dur-fast) var(--ease-standard);
+  }
+
+  .field__textarea:focus {
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-focus);
+  }
+
+  .field__textarea--error,
+  .field__textarea--error:focus {
+    border-color: var(--color-error);
+    box-shadow: none;
+  }
+
+  .field__msg {
+    font-family: var(--font-sans);
+    font-size: var(--fs-caption);
+    color: var(--text-muted);
+  }
+
+  .field__msg--error {
+    color: var(--color-error);
+  }
+</style>

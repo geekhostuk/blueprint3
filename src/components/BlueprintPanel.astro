@@ -1,0 +1,79 @@
+---
+/**
+ * The signature BluePrint3 dark section: navy gradient (bright centre, darker
+ * edges) with the technical-drawing lattice drawn on top in CSS. Use for
+ * heroes, section breaks and dark panels. A built-in protection vignette keeps
+ * text legible over the busiest part of the grid.
+ */
+interface Props {
+  padding?: string;
+  radius?: string;
+  gridSize?: number;
+  id?: string;
+  class?: string;
+}
+
+const {
+  padding = 'var(--space-8)',
+  radius = 'var(--radius-xl)',
+  gridSize = 28,
+  id,
+  class: className,
+} = Astro.props;
+---
+
+<div
+  id={id}
+  class:list={['panel', className]}
+  style={{
+    '--panel-padding': padding,
+    '--panel-radius': radius,
+    '--grid-size': `${gridSize}px`,
+    '--grid-size-major': `${gridSize * 4}px`,
+  }}
+>
+  <div class="panel__grid" aria-hidden="true"></div>
+  <div class="panel__vignette" aria-hidden="true"></div>
+  <div class="panel__content"><slot /></div>
+</div>
+
+<style>
+  .panel {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--panel-radius);
+    background: var(--bp-grid-gradient);
+    color: var(--bp-white);
+    padding: var(--panel-padding);
+  }
+
+  /* fine + major grid lattice, all in CSS */
+  .panel__grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+    background-size:
+      var(--grid-size) var(--grid-size),
+      var(--grid-size) var(--grid-size),
+      var(--grid-size-major) var(--grid-size-major),
+      var(--grid-size-major) var(--grid-size-major);
+  }
+
+  /* protection vignette so text stays legible */
+  .panel__vignette {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(90% 90% at 50% 45%, rgba(34, 55, 105, 0) 40%, rgba(34, 55, 105, 0.55) 100%);
+  }
+
+  .panel__content {
+    position: relative;
+    z-index: 1;
+  }
+</style>

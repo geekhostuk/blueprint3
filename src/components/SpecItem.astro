@@ -1,0 +1,41 @@
+---
+/**
+ * A single proof-point: a concrete figure and what it means.
+ * Embodies the brand voice — "show quality, never claim it". Use for
+ * tolerances, turnaround, minimum quantities: "±0.05mm", "Resin (SLA)".
+ */
+interface Props {
+  value: string;
+  label: string;
+  align?: 'left' | 'center' | 'right';
+  class?: string;
+}
+
+const { value, label, align = 'left', class: className } = Astro.props;
+---
+
+<div class:list={['spec', className]} style={{ textAlign: align }}>
+  <div class="spec__value">{value}</div>
+  <div class="spec__label">{label}</div>
+</div>
+
+<style>
+  .spec__value {
+    font-family: var(--font-sans);
+    font-size: var(--fs-h2);
+    font-weight: var(--fw-extrabold);
+    color: var(--color-brand);
+    line-height: var(--lh-tight);
+    letter-spacing: var(--ls-tight);
+  }
+
+  .spec__label {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    color: var(--text-muted);
+    margin-top: var(--space-1);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    font-weight: var(--fw-semibold);
+  }
+</style>

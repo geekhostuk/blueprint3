@@ -1,0 +1,47 @@
+---
+/** Small label chip for statuses, materials, tags. */
+interface Props {
+  tone?: 'brand' | 'neutral' | 'solid' | 'navy';
+  class?: string;
+}
+
+const { tone = 'brand', class: className } = Astro.props;
+---
+
+<span class:list={['badge', `badge--${tone}`, className]}><slot /></span>
+
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-family: var(--font-sans);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-semibold);
+    letter-spacing: var(--ls-label);
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: var(--radius-pill);
+    line-height: 1.4;
+  }
+
+  .badge--brand {
+    background: var(--bp-blue-tint);
+    color: var(--bp-blue-action);
+  }
+
+  .badge--neutral {
+    background: var(--bp-ink-75);
+    color: var(--bp-grey);
+  }
+
+  .badge--solid {
+    background: var(--color-brand);
+    color: #fff;
+  }
+
+  .badge--navy {
+    background: var(--bp-navy);
+    color: #fff;
+  }
+</style>

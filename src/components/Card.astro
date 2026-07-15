@@ -1,0 +1,38 @@
+---
+/**
+ * Surface container. Hairline border + soft shadow; lifts a little on hover
+ * when interactive. No coloured left-border accents.
+ */
+interface Props {
+  interactive?: boolean;
+  padding?: string;
+  class?: string;
+}
+
+const { interactive = false, padding = 'var(--space-5)', class: className } = Astro.props;
+---
+
+<div
+  class:list={['card', interactive && 'card--interactive', className]}
+  style={{ '--card-padding': padding }}
+>
+  <slot />
+</div>
+
+<style>
+  .card {
+    background: var(--surface-card);
+    border: var(--border-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--card-padding);
+    transition:
+      box-shadow var(--dur-med) var(--ease-standard),
+      transform var(--dur-med) var(--ease-standard);
+  }
+
+  .card--interactive:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+</style>

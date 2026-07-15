@@ -1,0 +1,13 @@
+# Local dev secrets for the quote form. Copy to `.dev.vars` (gitignored) and fill in.
+# In production these are Worker secrets, not read from this file — set them with
+# `wrangler secret put <NAME>`, or in the dashboard under
+#   Workers & Pages → blueprint3-website → Settings → Variables and Secrets
+
+# https://resend.com/api-keys
+RESEND_API_KEY="re_xxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Where quote requests get delivered.
+QUOTE_TO_EMAIL="hello@example.com"
+
+# Must be on a domain you've verified in Resend (https://resend.com/domains).
+QUOTE_FROM_EMAIL="BluePrint3 website <quotes@example.com>"

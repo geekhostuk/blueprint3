@@ -1,0 +1,82 @@
+---
+/**
+ * The BluePrint3 wordmark: "BluePrint" in charcoal, "3" in brand blue — the
+ * recognisable two-tone construction carried over from Blueprint Robotics.
+ * The robot-arm mark is retired; the optional cube tile is the current mark.
+ *
+ * `reversed` gives the whiteout version for navy / photographic backgrounds.
+ */
+interface Props {
+  size?: number;
+  showMark?: boolean;
+  markSrc?: string;
+  reversed?: boolean;
+  class?: string;
+}
+
+const {
+  size = 28,
+  showMark = false,
+  markSrc = '/assets/logo-cube.png',
+  reversed = false,
+  class: className,
+} = Astro.props;
+
+const markSize = size * 1.5;
+---
+
+<span
+  class:list={['logo', className]}
+  style={{
+    '--logo-size': `${size}px`,
+    '--logo-gap': `${size * 0.32}px`,
+    '--mark-size': `${markSize}px`,
+    '--mark-radius': `${size * 0.24}px`,
+    '--word-color': reversed ? 'var(--bp-white)' : 'var(--bp-charcoal)',
+    '--three-color': reversed ? 'var(--bp-white)' : 'var(--bp-blue)',
+  }}
+>
+  {
+    showMark && (
+      <img
+        class="logo__mark"
+        src={markSrc}
+        alt=""
+        aria-hidden="true"
+        width={markSize}
+        height={markSize}
+        decoding="async"
+      />
+    )
+  }
+  <span class="logo__word">BluePrint<span class="logo__three">3</span></span>
+</span>
+
+<style>
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--logo-gap);
+  }
+
+  .logo__mark {
+    height: var(--mark-size);
+    width: var(--mark-size);
+    border-radius: var(--mark-radius);
+    display: block;
+  }
+
+  .logo__word {
+    font-family: var(--font-sans);
+    font-weight: var(--fw-bold);
+    font-size: var(--logo-size);
+    line-height: 1;
+    letter-spacing: var(--ls-tight);
+    color: var(--word-color);
+    white-space: nowrap;
+  }
+
+  .logo__three {
+    color: var(--three-color);
+  }
+</style>

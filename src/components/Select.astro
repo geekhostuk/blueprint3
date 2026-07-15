@@ -1,0 +1,93 @@
+---
+/** Labelled native select. */
+interface Props {
+  label?: string;
+  hint?: string;
+  id: string;
+  name?: string;
+  options?: (string | { value: string; label: string })[];
+  required?: boolean;
+  class?: string;
+}
+
+const { label, hint, id, name, options = [], class: className, ...rest } = Astro.props;
+
+const normalised = options.map((o) =>
+  typeof o === 'string' ? { value: o, label: o } : o
+);
+---
+
+<div class:list={['field', className]}>
+  {label && <label class="field__label" for={id}>{label}</label>}
+  <div class="field__wrap">
+    <select
+      id={id}
+      name={name ?? id}
+      class="field__select"
+      aria-describedby={hint ? `${id}-desc` : undefined}
+      {...rest}
+    >
+      {normalised.map((o) => <option value={o.value}>{o.label}</option>)}
+    </select>
+    <span class="field__caret" aria-hidden="true">▾</span>
+  </div>
+  {hint && <span id={`${id}-desc`} class="field__msg">{hint}</span>}
+</div>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .field__label {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    color: var(--text-body);
+  }
+
+  .field__wrap {
+    position: relative;
+  }
+
+  .field__select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: var(--font-sans);
+    font-size: var(--fs-body);
+    color: var(--text-body);
+    background: var(--surface-card);
+    border: 1.5px solid var(--border-default);
+    border-radius: var(--radius-sm);
+    padding: 10px 36px 10px 12px;
+    outline: none;
+    cursor: pointer;
+    transition:
+      border-color var(--dur-fast) var(--ease-standard),
+      box-shadow var(--dur-fast) var(--ease-standard);
+  }
+
+  .field__select:focus {
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-focus);
+  }
+
+  .field__caret {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .field__msg {
+    font-family: var(--font-sans);
+    font-size: var(--fs-caption);
+    color: var(--text-muted);
+  }
+</style>

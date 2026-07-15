@@ -1,0 +1,61 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BlueprintPanel from '../components/BlueprintPanel.astro';
+import Button from '../components/Button.astro';
+import Logo from '../components/Logo.astro';
+
+// Where a native (no-JS) form post lands. With JS the success state is swapped
+// in on the page itself and this route is never reached.
+---
+
+<Layout
+  title="Got it — BluePrint3"
+  description="Your quote request has reached BluePrint3. We'll come back within 24 hours."
+>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex" />
+  </Fragment>
+
+  <main class="wrap">
+    <a class="wrap__brand" href="/" aria-label="BluePrint3 — home">
+      <Logo size={24} showMark markSrc="/assets/logo-cube.png" />
+    </a>
+    <BlueprintPanel padding="48px">
+      <h1 class="title">Got it.</h1>
+      <p class="body">
+        We'll look at what you've sent and come back with a quote within 24 hours. You'll hear from
+        the engineer doing the work &mdash; not an inbox.
+      </p>
+      <Button variant="onDark" href="/#quote">Send another</Button>
+    </BlueprintPanel>
+  </main>
+</Layout>
+
+<style>
+  .wrap {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 48px 24px 88px;
+  }
+
+  .wrap__brand {
+    display: inline-flex;
+    margin-bottom: 32px;
+    text-decoration: none;
+  }
+
+  .title {
+    font-size: 34px;
+    font-weight: var(--fw-extrabold);
+    margin: 0;
+    letter-spacing: var(--ls-tight);
+  }
+
+  .body {
+    font-size: 18px;
+    opacity: 0.9;
+    line-height: var(--lh-body);
+    margin: 14px 0 28px;
+    max-width: 460px;
+  }
+</style>

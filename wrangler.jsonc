@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+
+  // Astro's Cloudflare adapter fills in `main` and the static-asset binding at
+  // build time and writes the merged result to dist/server/wrangler.json —
+  // don't set them here or the build fails resolving them.
+  "name": "blueprint3-website",
+  "compatibility_date": "2026-04-15",
+
+  "observability": {
+    "enabled": true
+  }
+
+  // RESEND_API_KEY / QUOTE_TO_EMAIL / QUOTE_FROM_EMAIL are secrets — set them
+  // with `wrangler secret put <NAME>` or in the dashboard, never in this file.
+  // For local dev they come from .dev.vars (gitignored).
+}

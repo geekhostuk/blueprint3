@@ -1,0 +1,735 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Logo from '../components/Logo.astro';
+import BlueprintPanel from '../components/BlueprintPanel.astro';
+import Button from '../components/Button.astro';
+import Badge from '../components/Badge.astro';
+import Card from '../components/Card.astro';
+import SpecItem from '../components/SpecItem.astro';
+import Input from '../components/Input.astro';
+import Select from '../components/Select.astro';
+import Textarea from '../components/Textarea.astro';
+import Checkbox from '../components/Checkbox.astro';
+
+const specs = [
+  { value: '±0.1mm', label: 'FDM tolerance' },
+  { value: '±0.05mm', label: 'Resin tolerance' },
+  { value: '24hr', label: 'Quoted within' },
+  { value: '10', label: 'Minimum units' },
+];
+
+const promises = [
+  {
+    title: 'We tell you what we think',
+    body: "If a design won't print well or would be cheaper another way, you hear that before we take the money — not after.",
+  },
+  {
+    title: 'Small jobs get full attention',
+    body: 'A ten-unit run isn’t a favour we’re doing you. It’s the work. Nobody gets filed under “not worth the setup”.',
+  },
+  {
+    title: "We iterate until it's right",
+    body: "First print rarely is. Getting there is the process, not a complication. If it's not right, we print it again.",
+  },
+];
+
+const faqs = [
+  {
+    q: "I don't have a CAD file. Can you still help?",
+    a: "Yes — that's the service. Send a photo, a sketch, a rough description, or the broken part itself. We build the model from whatever you have.",
+  },
+  {
+    q: "What's the smallest run you'll take?",
+    a: "One. Low volume is the point. Ten units gets the same attention as a thousand, and you won't be pushed toward a minimum order you don't need.",
+  },
+  {
+    q: 'How fast can I get a quote?',
+    a: "Send over what you need and you'll have a quote within 24 hours — from the engineer doing the work, not an inbox.",
+  },
+  {
+    q: 'What materials can you print?',
+    a: 'PLA, PETG and nylon on FDM; resin (SLA) where fine detail matters. Not sure which suits your part? Tell us what it’s for and we’ll recommend one.',
+  },
+];
+
+const serviceOptions = ['3D modelling', 'Printing from my file', 'Both — idea to object'];
+const materials = ['Not sure yet', 'PLA', 'PETG', 'Resin (SLA)', 'Nylon'];
+
+const description =
+  'BluePrint3 is a design and manufacturing studio: 3D modelling, prototyping and low-volume printing under one roof. Bring a sketch, a photo or a broken part — quoted within 24 hours.';
+---
+
+<Layout title="BluePrint3 — Your idea, in your hands." description={description}>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== Nav ===== -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#top" aria-label="BluePrint3 — home">
+        <Logo size={26} showMark markSrc="/assets/logo-cube.png" />
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#services">Services</a>
+        <a href="#why">Why us</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav__cta">
+        <Button variant="primary" size="sm" href="#quote">Get a quote</Button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ===== Hero ===== -->
+    <section id="top">
+      <BlueprintPanel padding="clamp(44px, 7vw, 92px) 24px" radius="0px">
+        <div class="hero">
+          <span class="hero__eyebrow">Design &amp; manufacturing studio</span>
+          <h1 class="hero__title">Your idea, in your hands.</h1>
+          <p class="hero__lede">
+            It starts as a sketch. It leaves as a thing. Idea &rarr; model &rarr; object, under one
+            roof &mdash; you don't need a print-ready file to begin.
+          </p>
+          <div class="hero__actions">
+            <Button variant="onDark" size="lg" href="#quote">Get a quote</Button>
+            <a class="hero__ghost" href="#services">See what's possible</a>
+          </div>
+        </div>
+      </BlueprintPanel>
+    </section>
+
+    <!-- ===== Proof strip ===== -->
+    <section class="proof" aria-label="Capabilities at a glance">
+      <div class="proof__inner">
+        {specs.map((s) => <SpecItem value={s.value} label={s.label} />)}
+      </div>
+    </section>
+
+    <!-- ===== Services ===== -->
+    <section id="services" class="services">
+      <h2 class="section__title">Two services, one pipeline</h2>
+      <p class="section__lede">
+        You don't have to bring us a print-ready file, and you don't have to take a model elsewhere
+        to get it made.
+      </p>
+      <div class="services__grid">
+        <Card interactive>
+          <Badge tone="brand">Step one</Badge>
+          <h3 class="card__title">3D modelling</h3>
+          <p class="card__body">
+            Bring us a drawing, a photo, a rough description or a broken part, and we build the
+            model. Whether it needs to be manufactured, visualised, or just made to exist &mdash; the
+            model is the starting point.
+          </p>
+        </Card>
+        <Card interactive>
+          <Badge tone="brand">Step two</Badge>
+          <h3 class="card__title">Prototyping &amp; low-volume printing</h3>
+          <p class="card__body">
+            We print it. One-offs, iterations and short production runs. Low volume is the point, not
+            a limitation &mdash; you shouldn't need to order a thousand units to get ten good ones.
+          </p>
+        </Card>
+      </div>
+    </section>
+
+    <!-- ===== Why us / the promise ===== -->
+    <section id="why" class="why">
+      <div class="why__inner">
+        <h2 class="section__title">The engineer is the person you talk to.</h2>
+        <p class="section__lede section__lede--wide">
+          No account manager relaying messages to a workshop. You speak to whoever is doing the work
+          &mdash; and you're never left wondering where your job is or what it costs.
+        </p>
+        <div class="why__grid">
+          {
+            promises.map((p) => (
+              <div>
+                <h3 class="why__title">{p.title}</h3>
+                <p class="why__body">{p.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section id="faq" class="faq">
+      <h2 class="section__title faq__title">Questions, answered</h2>
+      {
+        faqs.map((f) => (
+          <details class="faq__item">
+            <summary class="faq__q">{f.q}</summary>
+            <p class="faq__a">{f.a}</p>
+          </details>
+        ))
+      }
+    </section>
+
+    <!-- ===== Quote form ===== -->
+    <section id="quote" class="quote">
+      <div class="quote__inner">
+        <div id="quote-form-panel">
+          <h2 class="quote__title">Tell us what you need made.</h2>
+          <p class="quote__lede">
+            Not sure what you need? Ask us. A sketch, a photo or a broken part is enough to start.
+          </p>
+          <Card padding="var(--space-6)">
+            <form id="quote-form" class="form" action="/api/quote" method="POST">
+              <div class="form__row">
+                <Input
+                  id="name"
+                  label="Your name"
+                  placeholder="Jordan Ellery"
+                  autocomplete="name"
+                  required
+                />
+                <Input
+                  id="email"
+                  label="Your email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+              <div class="form__row">
+                <Select id="service" label="Service" options={serviceOptions} />
+                <Select id="material" label="Material" options={materials} />
+              </div>
+              <Textarea
+                id="message"
+                label="What do you need made?"
+                rows={5}
+                placeholder="Describe it however you like — dimensions, quantity, deadline, what it's for."
+                required
+              />
+              <Checkbox id="notify" label="Email me when the quote is ready" checked />
+
+              {/* Honeypot — bots fill it in, people never see it. */}
+              <div class="form__trap" aria-hidden="true">
+                <label for="company">Company</label>
+                <input id="company" name="company" type="text" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <p id="form-error" class="form__error" role="alert" hidden></p>
+
+              <div class="form__actions">
+                <Button id="quote-submit" variant="primary" size="lg" type="submit">
+                  Send it over
+                </Button>
+                <span class="form__note">Quoted within 24 hours.</span>
+              </div>
+            </form>
+          </Card>
+        </div>
+
+        <div id="quote-sent-panel" hidden>
+          <BlueprintPanel padding="48px">
+            <h2 class="sent__title" id="sent-heading" tabindex="-1">Got it.</h2>
+            <p class="sent__body">
+              We'll look at what you've sent and come back with a quote within 24 hours. You'll hear
+              from the engineer doing the work &mdash; not an inbox.
+            </p>
+            <Button id="quote-reset" variant="onDark">Send another</Button>
+          </BlueprintPanel>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <Logo size={20} />
+      <span>Accessible manufacturing, done properly.</span>
+      <span class="footer__right">Quoted within 24 hours &middot; Warm, plain, British.</span>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#quote-form');
+  const formPanel = document.querySelector<HTMLElement>('#quote-form-panel');
+  const sentPanel = document.querySelector<HTMLElement>('#quote-sent-panel');
+  const sentHeading = document.querySelector<HTMLElement>('#sent-heading');
+  const errorEl = document.querySelector<HTMLElement>('#form-error');
+  const submitBtn = document.querySelector<HTMLButtonElement>('#quote-submit');
+  const resetBtn = document.querySelector<HTMLButtonElement>('#quote-reset');
+
+  // Without JS the form posts natively and the endpoint redirects to /quote-sent.
+  // With JS we submit in the background and swap in the success panel in place.
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    errorEl?.setAttribute('hidden', '');
+    submitBtn?.setAttribute('disabled', '');
+    const label = submitBtn?.textContent;
+    if (submitBtn) submitBtn.textContent = 'Sending…';
+
+    // Never show a raw exception message — every path here resolves to copy
+    // written for the person reading it.
+    const showError = (message: string) => {
+      if (!errorEl) return;
+      errorEl.textContent = message;
+      errorEl.removeAttribute('hidden');
+    };
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+
+      if (response.ok) {
+        formPanel?.setAttribute('hidden', '');
+        sentPanel?.removeAttribute('hidden');
+        sentHeading?.focus();
+      } else {
+        // The endpoint's own message is already specific ("That email address
+        // doesn't look right") — pass it through rather than talking over it.
+        const data = (await response.json().catch(() => null)) as { error?: string } | null;
+        showError(data?.error ?? 'We couldn’t send that just now. Please try again.');
+      }
+    } catch {
+      // fetch only rejects on a network-level failure, so say so.
+      showError('We couldn’t reach the server. Check your connection and try again.');
+    } finally {
+      submitBtn?.removeAttribute('disabled');
+      if (submitBtn && label) submitBtn.textContent = label;
+    }
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    form?.reset();
+    sentPanel?.setAttribute('hidden', '');
+    formPanel?.removeAttribute('hidden');
+  });
+</script>
+
+<style>
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    z-index: 100;
+    background: var(--bp-white);
+    color: var(--text-link);
+    padding: var(--space-3) var(--space-4);
+    font-weight: var(--fw-semibold);
+  }
+
+  .skip-link:focus {
+    left: var(--space-4);
+    top: var(--space-4);
+  }
+
+  /* ===== Nav ===== */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .nav__inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 13px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .nav__brand {
+    display: flex;
+    text-decoration: none;
+  }
+
+  .nav__links {
+    display: flex;
+    gap: 4px;
+    margin-left: 8px;
+  }
+
+  .nav__links a {
+    padding: 8px 12px;
+    font-size: 15px;
+    font-weight: var(--fw-semibold);
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: var(--radius-sm);
+    transition:
+      color var(--dur-fast) var(--ease-standard),
+      background var(--dur-fast) var(--ease-standard);
+  }
+
+  .nav__links a:hover {
+    color: var(--text-heading);
+    background: var(--bp-ink-75);
+  }
+
+  .nav__cta {
+    margin-left: auto;
+  }
+
+  @media (max-width: 640px) {
+    .nav__inner {
+      gap: 12px;
+    }
+
+    .nav__links {
+      display: none;
+    }
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .hero__eyebrow {
+    font-size: 13px;
+    letter-spacing: var(--ls-wide);
+    text-transform: uppercase;
+    opacity: 0.85;
+    font-weight: var(--fw-semibold);
+  }
+
+  .hero__title {
+    font-size: clamp(36px, 5.5vw, 60px);
+    font-weight: var(--fw-extrabold);
+    letter-spacing: var(--ls-tight);
+    line-height: 1.04;
+    margin: 16px 0 0;
+    max-width: 780px;
+  }
+
+  .hero__lede {
+    font-size: clamp(17px, 2vw, 21px);
+    opacity: 0.9;
+    line-height: var(--lh-body);
+    margin: 20px 0 0;
+    max-width: 560px;
+  }
+
+  .hero__actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 34px;
+    flex-wrap: wrap;
+  }
+
+  .hero__ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 28px;
+    font-size: 18px;
+    font-weight: var(--fw-semibold);
+    color: #fff;
+    text-decoration: none;
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    border-radius: var(--radius-sm);
+    transition:
+      background var(--dur-fast) var(--ease-standard),
+      border-color var(--dur-fast) var(--ease-standard);
+  }
+
+  .hero__ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.7);
+  }
+
+  /* ===== Proof strip ===== */
+  .proof {
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .proof__inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 44px 24px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 640px) {
+    .proof__inner {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px 24px;
+    }
+  }
+
+  /* ===== Shared section furniture ===== */
+  .section__title {
+    font-size: clamp(26px, 3.5vw, 34px);
+    font-weight: var(--fw-extrabold);
+    color: var(--text-heading);
+    margin: 0 0 8px;
+    letter-spacing: var(--ls-tight);
+  }
+
+  .section__lede {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: var(--lh-body);
+    margin: 0 0 32px;
+    max-width: 580px;
+  }
+
+  .section__lede--wide {
+    margin-bottom: 36px;
+    max-width: 620px;
+  }
+
+  /* ===== Services ===== */
+  .services {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 72px 24px;
+  }
+
+  .services__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 760px) {
+    .services__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .card__title {
+    font-size: 22px;
+    font-weight: var(--fw-bold);
+    color: var(--text-heading);
+    margin: 14px 0 8px;
+  }
+
+  .card__body {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: var(--lh-body);
+    margin: 0;
+  }
+
+  /* ===== Why ===== */
+  .why {
+    background: var(--surface-sunken);
+    border-top: 1px solid var(--border-default);
+    border-bottom: 1px solid var(--border-default);
+  }
+
+  .why__inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 72px 24px;
+  }
+
+  .why__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  @media (max-width: 760px) {
+    .why__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .why__title {
+    font-size: 17px;
+    font-weight: var(--fw-bold);
+    color: var(--bp-navy);
+    margin: 0 0 6px;
+  }
+
+  .why__body {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: var(--lh-body);
+    margin: 0;
+  }
+
+  /* ===== FAQ ===== */
+  .faq {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 72px 24px;
+  }
+
+  .faq__title {
+    margin-bottom: 28px;
+  }
+
+  .faq__item {
+    border-bottom: 1px solid var(--border-default);
+    padding: 18px 0;
+  }
+
+  .faq__q {
+    font-size: 17px;
+    font-weight: var(--fw-semibold);
+    color: var(--text-heading);
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .faq__q::-webkit-details-marker {
+    display: none;
+  }
+
+  /* A drawn chevron rather than the default disclosure triangle. */
+  .faq__q::after {
+    content: '';
+    flex: none;
+    width: 9px;
+    height: 9px;
+    border-right: 2px solid var(--color-brand);
+    border-bottom: 2px solid var(--color-brand);
+    transform: translateY(-3px) rotate(45deg);
+    transition: transform var(--dur-med) var(--ease-standard);
+  }
+
+  .faq__item[open] .faq__q::after {
+    transform: translateY(2px) rotate(-135deg);
+  }
+
+  .faq__a {
+    font-size: 15px;
+    color: var(--text-muted);
+    line-height: var(--lh-body);
+    margin: 12px 0 0;
+  }
+
+  /* ===== Quote ===== */
+  .quote {
+    background: var(--surface-sunken);
+    border-top: 1px solid var(--border-default);
+  }
+
+  .quote__inner {
+    max-width: 660px;
+    margin: 0 auto;
+    padding: 72px 24px 88px;
+  }
+
+  .quote__title {
+    font-size: clamp(28px, 4vw, 40px);
+    font-weight: var(--fw-extrabold);
+    color: var(--text-heading);
+    margin: 0 0 8px;
+    letter-spacing: var(--ls-tight);
+  }
+
+  .quote__lede {
+    font-size: 17px;
+    color: var(--text-muted);
+    line-height: var(--lh-body);
+    margin: 0 0 28px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 560px) {
+    .form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form__trap {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form__error {
+    margin: 0;
+    font-size: var(--fs-small);
+    color: var(--color-error);
+    line-height: var(--lh-snug);
+  }
+
+  .form__actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .form__note {
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+
+  .sent__title {
+    font-size: 34px;
+    font-weight: var(--fw-extrabold);
+    margin: 0;
+    letter-spacing: var(--ls-tight);
+    outline: none;
+  }
+
+  .sent__body {
+    font-size: 18px;
+    opacity: 0.9;
+    line-height: var(--lh-body);
+    margin: 14px 0 28px;
+    max-width: 460px;
+  }
+
+  /* ===== Footer ===== */
+  .footer {
+    border-top: 1px solid var(--border-default);
+  }
+
+  .footer__inner {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .footer__right {
+    margin-left: auto;
+  }
+
+  @media (max-width: 640px) {
+    .footer__right {
+      margin-left: 0;
+    }
+  }
+</style>
