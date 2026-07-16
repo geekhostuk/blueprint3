@@ -9,7 +9,7 @@ import Logo from '../components/Logo.astro';
 ---
 
 <Layout
-  title="That didn't send — BluePrint3"
+  title="That didn't send · BluePrint3"
   description="Your quote request didn't reach us. Please try again."
 >
   <Fragment slot="head">
@@ -17,17 +17,17 @@ import Logo from '../components/Logo.astro';
   </Fragment>
 
   <main class="wrap">
-    <a class="wrap__brand" href="/" aria-label="BluePrint3 — home">
+    <a class="wrap__brand" href="/" aria-label="BluePrint3 · home">
       <Logo size={24} showMark markSrc="/assets/logo-cube.png" />
     </a>
     <Card padding="var(--space-6)">
       <h1 class="title">That didn't send.</h1>
       <p class="body">
-        Something went wrong at our end and your message didn't reach us &mdash; so please don't
+        Something went wrong at our end and your message didn't reach us, so please don't
         assume we've got it. Go back and try again, and if it still won't send we'd rather you told
         us than gave up.
       </p>
-      <Button variant="primary" href="/#quote">Back to the form</Button>
+      <Button variant="primary" href="/#contact">Back to the form</Button>
     </Card>
   </main>
 </Layout>
