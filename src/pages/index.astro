@@ -9,7 +9,6 @@ import SpecItem from '../components/SpecItem.astro';
 import Input from '../components/Input.astro';
 import Select from '../components/Select.astro';
 import Textarea from '../components/Textarea.astro';
-import Checkbox from '../components/Checkbox.astro';
 
 const specs = [
   { value: '±0.5mm', label: 'FDM tolerance' },
@@ -19,16 +18,16 @@ const specs = [
 
 const promises = [
   {
-    title: 'We tell you what we think',
-    body: "If a design won't print well or would be cheaper another way, you hear that before we take the money, not after.",
+    title: "We're here to help",
+    body: "We offer a free 30-minute chat to go over your idea, sketch or model. If a design won't print well or would be cheaper another way, we'll advise on the best approach.",
   },
   {
-    title: 'Small jobs get full attention',
-    body: 'A ten-unit run isn’t a favour we’re doing you. It’s the work. Nobody gets filed under “not worth the setup”.',
+    title: 'Every job, big or small, gets full attention',
+    body: "Whether your job's big or small, simple or complex, we'll help. If it's important to you, it's important to us.",
   },
   {
-    title: "We iterate until it's right",
-    body: "First print rarely is. Getting there is the process, not a complication. If it's not right, we print it again.",
+    title: "We're with you until it's right",
+    body: "Nothing is perfect first time, but we'll help you as best we can.",
   },
 ];
 
@@ -47,7 +46,7 @@ const faqs = [
   },
   {
     q: 'What materials can you print?',
-    a: 'PLA, PETG and TPU on FDM. Not sure which suits your part? Tell us what it’s for and we’ll recommend one.',
+    a: 'FDM prints are made in PLA, PETG or TPU. Not sure which suits your needs? Tell us what and where it’s for and we can advise on what’s best. For outdoor or direct-sun use, PETG; for simple indoor parts, PLA; for flexible, rubber-like parts, TPU.',
   },
 ];
 
@@ -118,9 +117,9 @@ const description =
           <span class="hero__eyebrow">3D CAD modelling &middot; individuals, trade &amp; B2B</span>
           <h1 class="hero__title">Your idea, in your hands.</h1>
           <p class="hero__lede">
-            It starts as a sketch. It leaves as a thing.
-            <span class="nowrap">Idea &rarr; model &rarr; object</span>, under one roof. You don't
-            need a print-ready file to begin.
+            It starts as a sketch. It leaves as a thing.<br />
+            <span class="nowrap">Idea &rarr; model &rarr; object</span><br />
+            All under one roof. You don't need a print-ready file to begin.
           </p>
           <div class="hero__actions">
             <Button variant="onDark" size="lg" href="#contact">Get a quote</Button>
@@ -150,8 +149,7 @@ const description =
           <h3 class="card__title">3D modelling</h3>
           <p class="card__body">
             Bring us a drawing, a photo, a rough description or a broken part, and we build the
-            model. Whether it needs to be manufactured, visualised, or just made to exist, the
-            model is the starting point.
+            model.
           </p>
         </Card>
         <Card interactive>
@@ -159,7 +157,7 @@ const description =
           <h3 class="card__title">Prototyping &amp; low-volume printing</h3>
           <p class="card__body">
             We print it. One-offs, iterations and short production runs. Low volume is the point, not
-            a limitation. You shouldn't need to order a thousand units to get ten good ones.
+            a limitation. Let's get your repair, fix or idea off the ground.
           </p>
         </Card>
       </div>
@@ -200,8 +198,8 @@ const description =
       <div class="why__inner">
         <h2 class="section__title">The engineer is the person you talk to.</h2>
         <p class="section__lede section__lede--wide">
-          No account manager relaying messages to a workshop. You speak to whoever is doing the work,
-          and you're never left wondering where your job is or what it costs.
+          No middle man. You speak directly to the engineer doing the work, and you'll be kept
+          informed of progress at every step, whatever your needs.
         </p>
         <div class="why__grid">
           {
@@ -238,7 +236,13 @@ const description =
             Not sure what you need? Ask us. A sketch, a photo or a broken part is enough to start.
           </p>
           <Card padding="var(--space-6)">
-            <form id="quote-form" class="form" action="/api/quote" method="POST">
+            <form
+              id="quote-form"
+              class="form"
+              action="/api/quote"
+              method="POST"
+              enctype="multipart/form-data"
+            >
               <div class="form__row">
                 <Input
                   id="name"
@@ -262,12 +266,28 @@ const description =
               </div>
               <Textarea
                 id="message"
-                label="What do you need made?"
+                label="Let us know your idea"
                 rows={5}
-                placeholder="Describe it however you like: dimensions, quantity, deadline, what it's for."
+                placeholder="Please provide as much detail as possible, such as dimensions, overall size, quantity and what it's for."
                 required
               />
-              <Checkbox id="notify" label="Email me when the quote is ready" checked />
+
+              <div class="form__field">
+                <label class="form__label" for="attachments">
+                  Attachments <span class="form__optional">(optional)</span>
+                </label>
+                <input
+                  id="attachments"
+                  name="attachments"
+                  class="form__file"
+                  type="file"
+                  multiple
+                  accept="image/png,image/jpeg,image/webp,image/gif,.pdf,.stl,.step,.stp,.3mf,.obj"
+                />
+                <span class="form__hint">
+                  Photos, sketches or CAD files. Up to 5 files, 10MB each.
+                </span>
+              </div>
 
               {/* Honeypot — bots fill it in, people never see it. */}
               <div class="form__trap" aria-hidden="true">
@@ -319,6 +339,12 @@ const description =
   const errorEl = document.querySelector<HTMLElement>('#form-error');
   const submitBtn = document.querySelector<HTMLButtonElement>('#quote-submit');
   const resetBtn = document.querySelector<HTMLButtonElement>('#quote-reset');
+  const fileInput = document.querySelector<HTMLInputElement>('#attachments');
+
+  // Kept in step with the server-side limits in src/pages/api/quote.ts.
+  const MAX_FILES = 5;
+  const MAX_FILE_BYTES = 10 * 1024 * 1024;
+  const MAX_TOTAL_BYTES = 20 * 1024 * 1024;
 
   // Without JS the form posts natively and the endpoint redirects to /quote-sent.
   // With JS we submit in the background and swap in the success panel in place.
@@ -327,9 +353,6 @@ const description =
     if (!form.reportValidity()) return;
 
     errorEl?.setAttribute('hidden', '');
-    submitBtn?.setAttribute('disabled', '');
-    const label = submitBtn?.textContent;
-    if (submitBtn) submitBtn.textContent = 'Sending…';
 
     // Never show a raw exception message — every path here resolves to copy
     // written for the person reading it.
@@ -338,6 +361,27 @@ const description =
       errorEl.textContent = message;
       errorEl.removeAttribute('hidden');
     };
+
+    // Catch oversized attachments before uploading so the person gets an
+    // instant, friendly message rather than waiting on a rejected upload.
+    const files = fileInput?.files ? Array.from(fileInput.files) : [];
+    if (files.length > MAX_FILES) {
+      showError(`Please attach no more than ${MAX_FILES} files.`);
+      return;
+    }
+    const oversized = files.find((f) => f.size > MAX_FILE_BYTES);
+    if (oversized) {
+      showError(`“${oversized.name}” is too large. Each file must be under 10MB.`);
+      return;
+    }
+    if (files.reduce((sum, f) => sum + f.size, 0) > MAX_TOTAL_BYTES) {
+      showError('Those attachments are too large. Please keep the total under 20MB.');
+      return;
+    }
+
+    submitBtn?.setAttribute('disabled', '');
+    const label = submitBtn?.textContent;
+    if (submitBtn) submitBtn.textContent = 'Sending…';
 
     try {
       const response = await fetch(form.action, {
@@ -792,6 +836,59 @@ const description =
     .form__row {
       grid-template-columns: 1fr;
     }
+  }
+
+  /* Attachment field */
+  .form__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form__label {
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    color: var(--text-body);
+  }
+
+  .form__optional {
+    font-weight: var(--fw-regular);
+    color: var(--text-faint);
+  }
+
+  .form__file {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    color: var(--text-body);
+    background: var(--surface-card);
+    border: 1.5px dashed var(--border-default);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    cursor: pointer;
+  }
+
+  .form__file:focus-visible {
+    outline: none;
+    border-color: var(--border-focus);
+    box-shadow: var(--shadow-focus);
+  }
+
+  .form__file::file-selector-button {
+    font-family: var(--font-sans);
+    font-size: var(--fs-small);
+    font-weight: var(--fw-semibold);
+    color: var(--bp-white);
+    background: var(--color-brand);
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    margin-right: 12px;
+    cursor: pointer;
+  }
+
+  .form__hint {
+    font-size: var(--fs-caption);
+    color: var(--text-muted);
   }
 
   .form__trap {
