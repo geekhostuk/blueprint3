@@ -5,9 +5,11 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  // Swap this for the custom domain once DNS is pointed at Cloudflare — it's
-  // what the sitemap, robots.txt and the canonical/og:url tags are built from.
-  site: 'https://blueprint3.pages.dev',
+  // The custom domain. Everything else (sitemap, robots.txt, canonical/og:url
+  // tags) is built from this. DNS for blueprint3.co.uk must be pointed at
+  // Cloudflare and the domain added under the Pages/Worker project's Custom
+  // Domains for this to resolve.
+  site: 'https://blueprint3.co.uk',
 
   // Pages are prerendered to static HTML and served from Cloudflare's asset
   // store. Only /api/quote opts out (`export const prerender = false`) and
