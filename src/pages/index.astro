@@ -50,10 +50,10 @@ const faqs = [
   },
 ];
 
-// Real work from Kai. Each graphic carries its own title, so the card drops the
-// redundant heading and shows a short tag + one-line blurb beneath the image.
-// `title` is retained for the image alt text only. To add more, drop a file in
-// public/assets/ and follow the same shape.
+// Real work from Kai. Each card shows the graphic, then a tag, heading and
+// one-line blurb. NB: the current graphics still have their own titles baked
+// in, so the heading duplicates them until the images are re-exported without
+// text. To add more, drop a file in public/assets/ and follow the same shape.
 const caseStudies = [
   {
     tag: 'Idea to object',
@@ -184,6 +184,7 @@ const description =
                 )}
                 <div class="work__text">
                   <Badge tone="brand">{c.tag}</Badge>
+                  <h3 class="card__title">{c.title}</h3>
                   <p class="card__body">{c.blurb}</p>
                 </div>
               </Card>
@@ -699,7 +700,7 @@ const description =
     padding: var(--space-5);
   }
 
-  .work__text .card__body {
+  .work__text .card__title {
     margin-top: 12px;
   }
 
