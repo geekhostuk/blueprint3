@@ -50,33 +50,34 @@ const faqs = [
   },
 ];
 
-// Placeholder case studies. Replace `blurb` copy and add an `image` path
-// (e.g. image: '/assets/case-bracket.jpg') as Kai sends real work over — the
-// card swaps the blueprint placeholder for the photo automatically.
+// Real work from Kai. Each graphic carries its own title, so the card drops the
+// redundant heading and shows a short tag + one-line blurb beneath the image.
+// `title` is retained for the image alt text only. To add more, drop a file in
+// public/assets/ and follow the same shape.
 const caseStudies = [
   {
-    tag: 'Reverse-engineered',
-    title: 'Obsolete part rebuilt',
-    blurb: 'A discontinued component modelled from the broken original and printed to fit first time.',
-    image: '',
-  },
-  {
-    tag: 'Trade',
-    title: 'Bespoke workshop jig',
-    blurb: 'A one-off fixing jig modelled from a rough sketch to speed up a repetitive fit.',
-    image: '',
+    tag: 'Idea to object',
+    title: 'From sketch to printed award',
+    blurb: 'A napkin sketch taken all the way to a full-colour, multi-part printed trophy.',
+    image: '/assets/case-idea-to-model.png',
   },
   {
     tag: 'B2B',
-    title: 'Enclosure prototype',
-    blurb: 'Several quick iterations of a housing before committing to a short production run.',
-    image: '',
+    title: 'Custom 3D modelling',
+    blurb: 'A bespoke component tray modelled from scratch to hold each part exactly where it needs to sit.',
+    image: '/assets/case-custom-3d.png',
   },
   {
-    tag: 'Individual',
-    title: 'Replacement knob',
-    blurb: 'A small household part modelled from a single photo and printed in PETG.',
-    image: '',
+    tag: 'Reverse-engineered',
+    title: 'Obsolete or unstocked parts',
+    blurb: 'Discontinued and hard-to-find parts rebuilt from the broken originals and printed to fit.',
+    image: '/assets/case-obsolete-parts.png',
+  },
+  {
+    tag: 'Repairs',
+    title: 'Repairs & replacement parts',
+    blurb: 'Worn and broken parts remodelled and reprinted, from controller sticks to household fittings.',
+    image: '/assets/case-repairs.png',
   },
 ];
 
@@ -175,7 +176,7 @@ const description =
             caseStudies.map((c) => (
               <Card interactive padding="0" class="work__card">
                 {c.image ? (
-                  <img class="work__media" src={c.image} alt={c.title} loading="lazy" />
+                  <img class="work__media" src={c.image} alt={c.title} width="945" height="567" loading="lazy" />
                 ) : (
                   <div class="work__media work__media--placeholder" aria-hidden="true">
                     <span>BluePrint3</span>
@@ -183,7 +184,6 @@ const description =
                 )}
                 <div class="work__text">
                   <Badge tone="brand">{c.tag}</Badge>
-                  <h3 class="card__title">{c.title}</h3>
                   <p class="card__body">{c.blurb}</p>
                 </div>
               </Card>
@@ -660,12 +660,16 @@ const description =
     flex-direction: column;
   }
 
+  /* Graphics carry their own baked-in titles, so show them whole (contain,
+     not crop) on a light surface — cropping would cut the headings and dark
+     text on the dark grid would vanish. */
   .work__media {
     display: block;
     width: 100%;
     aspect-ratio: 16 / 10;
-    object-fit: cover;
-    background: var(--bp-grid-gradient);
+    object-fit: contain;
+    background: var(--bp-white);
+    border-bottom: 1px solid var(--border-default);
   }
 
   /* Placeholder tile: on-brand blueprint grid until a real photo is dropped in. */
@@ -695,7 +699,7 @@ const description =
     padding: var(--space-5);
   }
 
-  .work__text .card__title {
+  .work__text .card__body {
     margin-top: 12px;
   }
 
