@@ -328,6 +328,11 @@ const description =
       <span>Accessible manufacturing, done properly.</span>
       <span class="footer__right">Quoted within 24 hours &middot; Warm, plain, British.</span>
     </div>
+    <div class="footer__credit">
+      <span>
+        Site by <a href="http://geekhost.uk/" target="_blank" rel="noopener noreferrer">Geekhost</a>
+      </span>
+    </div>
   </footer>
 </Layout>
 
@@ -946,7 +951,7 @@ const description =
   .footer__inner {
     max-width: 1120px;
     margin: 0 auto;
-    padding: 32px 24px;
+    padding: 32px 24px 12px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -957,6 +962,18 @@ const description =
 
   .footer__right {
     margin-left: auto;
+  }
+
+  .footer__credit {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 24px 32px;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .footer__credit a {
+    color: var(--text-link);
   }
 
   @media (max-width: 640px) {
