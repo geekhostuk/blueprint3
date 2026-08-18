@@ -326,11 +326,9 @@ const description =
     <div class="footer__inner">
       <Logo size={20} />
       <span>Accessible manufacturing, done properly.</span>
-      <span class="footer__right">Quoted within 24 hours &middot; Warm, plain, British.</span>
-    </div>
-    <div class="footer__credit">
-      <span>
-        Site by <a href="http://geekhost.uk/" target="_blank" rel="noopener noreferrer">Geekhost</a>
+      <span class="footer__right">
+        Quoted within 24 hours &middot; Warm, plain, British. &middot;
+        Site by <a class="footer__credit" href="http://geekhost.uk/" target="_blank" rel="noopener noreferrer">Geekhost</a>
       </span>
     </div>
   </footer>
@@ -951,7 +949,7 @@ const description =
   .footer__inner {
     max-width: 1120px;
     margin: 0 auto;
-    padding: 32px 24px 12px;
+    padding: 32px 24px;
     display: flex;
     align-items: center;
     gap: 16px;
@@ -964,16 +962,21 @@ const description =
     margin-left: auto;
   }
 
+  /* Quiet link, same idiom as the nav: muted text that darkens on hover.
+     Underlined because it sits inside a run of plain text, unlike the nav. */
   .footer__credit {
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 24px 32px;
-    font-size: 14px;
-    color: var(--text-muted);
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    text-decoration-color: var(--border-strong);
+    transition:
+      color var(--dur-fast) var(--ease-standard),
+      text-decoration-color var(--dur-fast) var(--ease-standard);
   }
 
-  .footer__credit a {
-    color: var(--text-link);
+  .footer__credit:hover {
+    color: var(--text-heading);
+    text-decoration-color: currentColor;
   }
 
   @media (max-width: 640px) {
